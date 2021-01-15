@@ -1,0 +1,54 @@
+$paragraph-family: "Open Sans", sans-serif;
+$heading-family: "Roboto", sans-serif;
+
+// colors:
+$cl-wt: #ffffff;
+$cl-dark: #212529;
+$cl-navblack: #363d4d;
+
+// Main
+
+p , a{
+  font-family: $paragraph-family;
+  font-size: 1rem;
+}
+
+// Header
+
+.nav {
+  &-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &-link {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: $cl-navblack;
+    line-height: 1.5rem;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 2.5rem;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  &-button {
+    background-color: $cl-navblack;
+    color: $cl-wt;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    padding: 0.625rem 1.5rem;
+    border: 2px solid $cl-navblack;
+    border-radius: 4px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 2.5rem;
+
+    &:hover {
+      text-decoration: underline;
+      color: $cl-wt;
+    }
+  }
+}
