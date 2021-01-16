@@ -2,15 +2,18 @@
 import React, { Component } from 'react'
 import DropZone from "../components/DropZone";
 
+import { fetchVisionApi } from '../redux/actions';
+
+import { connect } from 'react-redux';
+
 class Homepage extends Component {
-  constructor(props) {
-    super(props);
+
+  getImageDetails = (file) => {
+    console.log("data from dropdown", file);
+    console.log(this.props.fetchVisionApi(file[0].preview))
   }
 
-  getImageDetails = (file) => { 
-    console.log("data from dropdown", file);
-  }   
-  
+
   render() {
 
     return (
@@ -18,8 +21,8 @@ class Homepage extends Component {
         {/*  Jumbotron  */}
         <div className="p-5 text-center bg-light">
           <h1 className="mb-3">Drag and Drop</h1>
-          <DropZone getImageDetails={this.getImageDetails}/>
-          
+          <DropZone getImageDetails={this.getImageDetails} />
+
         </div>
         {/* Jumbotron  */}
       </div>
@@ -28,4 +31,4 @@ class Homepage extends Component {
 }
 
 
-export default Homepage;
+export default connect(null, { fetchVisionApi })(Homepage);

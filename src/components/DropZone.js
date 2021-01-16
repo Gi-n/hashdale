@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 
 import { useDropzone } from 'react-dropzone';
+import { useToasts } from 'react-toast-notifications'
 
 const thumbsContainer = {
     display: 'flex',
@@ -36,10 +37,10 @@ const img = {
 
 function DropZone(props) {
     const [files, setFiles] = useState([]);
-
+    const { addToast } = useToasts()
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
-        onDrop: acceptedFiles => {
+        onDrop: acceptedFiles => {           
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
@@ -58,17 +59,8 @@ function DropZone(props) {
         </div>
     ));
 
-    const getNotification = () => {
-        console.log("notification calliing")
-        return (
-            <div class="alert alert-danger" role="alert">
-                A simple danger alert—check it out!
-            </div>
-        )
-    }
-
     const getData = () => {
-
+        if (files.length === 0) return addToast('No files Found , Please upload the image to process.', { appearance: 'error', autoDismiss: true })
         props.getImageDetails(files)
     }
 
@@ -80,11 +72,11 @@ function DropZone(props) {
 
     return (
         <div>
-            {files.length === 0 ? getNotification() : ''}
             <section className="container mb-4">
                 <div {...getRootProps({ className: 'dropzone w-50 m-auto' })}>
                     <input {...getInputProps()} />
                     <p>Drag 'n' drop some files here, or click to select files</p>
+                    <em>(Only *.jpeg and *.png images will be accepted)</em>
                 </div>
                 <aside style={thumbsContainer}>
                     {thumbs}
